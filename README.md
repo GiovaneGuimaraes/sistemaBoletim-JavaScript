@@ -8,7 +8,7 @@ redes: www.linkedin.com/in/giovane-guimar%C3%A3es-a06683211/
 
   ![1](https://github.com/GiovaneGuimaraes/sistemaBoletim-JavaScript/assets/133304083/ecae9480-599f-4e67-9997-6a01ab216a76)
 
-  Recursos e funcionalidades
+# Recursos e funcionalidades
 - Gerar números aleatórios de notas para cada aluno.
 - Exibir as notas e a média de cada aluno.
 - Atualizar a cor de fundo da caixa do aluno com base na média (verde para aprovação, amarelo para recuperação e vermelho para reprovação).
@@ -19,7 +19,7 @@ redes: www.linkedin.com/in/giovane-guimar%C3%A3es-a06683211/
 
 ![2](https://github.com/GiovaneGuimaraes/sistemaBoletim-JavaScript/assets/133304083/daf0dfdd-b60a-45b6-b2b1-83f1ea16abd4)
 
-Tecnologias utilizadas
+# Tecnologias utilizadas
 - HTML
 - CSS
 - JavaScript
