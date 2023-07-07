@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim Aleatorio</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0 auto;
+            
+        }
+ 
+        .formulario{
+            margin-bottom: 3%;
+            margin-top: 4%;
+            text-align: center;
+            font-size: xx-large;
+            font-family: monospace;
+            color: rgb(83, 83, 83);
+
+        }
+        .caixa{
+            cursor:text;
+            margin-top: 40px;
+            font-family: monospace;
+            font-size: xx-large;
+            align-items: center;
+            box-sizing: border-box;
+            width: 400px;
+            height: 40px;
+            border-radius: 7px;
+        }
+        
+       .gerar{
+            transition: all 0.5s;
+            width: 80px;
+            height: 40px;
+            background: #485fc7;
+            color: #fff;
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-top: 10px;
+
+        }
+
+        .gerar:hover{
+            background-color: rgb(108, 108, 255);
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .botoesadicionais{
+            width: 100%;
+            align-items: center;
+            text-align: center;    
+        }
+        #add{
+            transition: all 0.5s;
+            background-color: #00d1b2;
+            width: 90px;
+            height: 40px;
+            color: rgb(32, 32, 32);
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-left: .5%;
+
+        }
+        #add:hover{
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+        #rem{
+            transition: all 0.5s;
+            background-color: #ffe08a;
+            width: 90px;
+            height: 40px;
+            color: rgb(32, 32, 32);
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-left: .5%;
+
+        }
+
+        #rem:hover{
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        #pior{
+            transition: all 0.5s;
+            background-color: #f14668;
+            width: 190px;
+            height: 40px;
+            color: #fff;
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-left: .5%;
+        }
+        #pior:hover{
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .cadastros{
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .aluno{
+            display: inline-block;
+            margin-top: 10px;
+            text-align: center;
+            margin-left: .5%;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border-style: none;
+            border-color: rgba(255, 242, 242, 0.986);
+            border-radius: 7px;      
+        }
+
+        p{
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        .botoesaluno{
+            margin-top: 15px;
+            width: 100%;
+            align-items: center;
+            text-align: center; 
+        }
+
+        .botaoremover{
+            transition: all 0.5s;
+            background-color: #f14668;
+            width: 80px;
+            height: 40px;
+            color: #fff;
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-left: 1.5%;
+        }
+        .botaoremover:hover{
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+        .botaonotamais{
+            transition: all 0.5s;
+            background-color: #00d1b2;
+            width: 80px;
+            height: 40px;
+            color: rgb(32, 32, 32);
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-left: 1.5%;
+        }
+        .botaonotamais:hover{
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+        .botaonotamenos{
+            transition: all 0.5s;
+            background-color: #ffe08a;
+            width: 80px;
+            height: 40px;
+            color: rgb(32, 32, 32);
+            cursor: pointer;
+            font-size: large;
+            font-family: monospace;
+            border: none;
+            border-radius: 7px;
+            margin-left: 1.5%;
+        }
+        .botaonotamenos:hover{
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+        .notas{
+            margin-top: 10px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <form class="formulario">
+        <p>Digite o número de alunos</p>
+        <input class="caixa" type="number" name="numero" required min="0"> 
+        <button class="gerar">Gerar</button> 
+    </form>
+    <div class="botoesadicionais">
+        <button id="add">Adicionar</button>
+        <button id="rem">Remover</button>
+        <button id="pior">Remover pior média</button>
+    </div>
+    <div class="cadastros"></div>
+
+
+    <script>
+        function gerarNumeroAleatorio(){ //numero randomico
+            let n = (Math.random() * 101) / 10;
+            if (n > 10) {
+                return 10;
+            }
+            return n;
+        }
+
+        function renomear(){
+            var quantidadediv = $('.cadastros').children().length //quantos alunos cadastrados
+            
+            for(let i =0; i<quantidadediv;i++){
+                var numeroaluno = ($('.aluno').eq(i).children().eq(0))
+                numeroaluno.html(`Aluno ${i+1}`)
+            }
+        }
+
+        function criaraluno(){
+
+            var novoelementodiv = $('<div>').addClass("aluno") //criar box para o aluno
+
+            var quantidadediv = $('.cadastros').children().length //verifica quantos estao cadastrados
+            console.log(quantidadediv)
+
+            var novoelementoaluno = $('<p>')// titulo da box ('aluno x')
+            novoelementoaluno.append(`Aluno ${quantidadediv+1}`)
+            novoelementodiv.append(novoelementoaluno)
+
+            var novoelementonotas = $('<div>').addClass("notas") //criando lista de notas do aluno
+            //nota1
+            var novoelementonotas1 = $('<div>').addClass("nota1") 
+            let nota1 = gerarNumeroAleatorio()
+            var nomenota1 = $('<b>').append('Nota 1: ')
+            novoelementonotas1.append(nomenota1)
+            var numeronota1 = $('<span>').addClass("acharspan").append(nota1.toFixed(2))
+            novoelementonotas1.append(numeronota1)
+            if(nota1 >= 6){
+                numeronota1.css('color','blue')
+            }
+            else{
+                numeronota1.css('color','red')
+            }                
+            novoelementonotas.append(novoelementonotas1)
+
+            //nota2
+            var novoelementonotas2 = $('<div>').addClass("nota2")
+            let nota2 = gerarNumeroAleatorio()  
+            var nomenota2 = $('<b>').append('Nota 2: ') 
+            novoelementonotas2.append(nomenota2)
+            var numeronota2 = $('<span>').addClass("acharspan").append(nota2.toFixed(2))
+            novoelementonotas2.append(numeronota2)
+            if(nota2 >= 6){
+                numeronota2.css('color','blue')
+            }
+            else{
+                numeronota2.css('color','red')
+            }                
+            novoelementonotas.append(novoelementonotas2) 
+
+            //nota3
+            var novoelementonotas3 = $('<div>').addClass("nota3")
+            let nota3 = gerarNumeroAleatorio()  
+            var nomenota3 = $('<b>').append('Nota 3: ') 
+            novoelementonotas3.append(nomenota3)
+            var numeronota3 = $('<span>').addClass("acharspan").append(nota3.toFixed(2))
+            novoelementonotas3.append(numeronota3)
+            if(nota3 >= 6){
+                numeronota3.css('color','blue')
+            }
+            else{
+                numeronota3.css('color','red')
+            }                
+            novoelementonotas.append(novoelementonotas3)
+
+
+            //media
+            var novoelementonotasmedia = $('<div>').addClass("medias")
+            let media = (nota1 + nota2 + nota3) / 3
+            var nomemedia = $('<b>').append('Media: ')
+            novoelementonotasmedia.append(nomemedia)
+            var numeromedia = $('<span>').append(media.toFixed(2))
+            novoelementonotasmedia.append(numeromedia)
+            if(media >= 6){
+                numeromedia.css('color','blue')
+            }
+            else{
+                numeromedia.css('color','red')
+            }
+            novoelementonotas.append(novoelementonotasmedia)
+
+            novoelementodiv.append(novoelementonotas)
+
+            //criando os botoes(remover, nota+, nota-)
+            var novadivbotoes = $('<div>').addClass("botoesaluno")
+            var botaoremover = $('<Button>').addClass("botaoremover")
+            botaoremover.append('Remover')
+            var botaonotamais = $('<Button>').addClass("botaonotamais")
+            botaonotamais.append('+ Nota')
+            var botaonotamenos = $('<Button>').addClass("botaonotamenos")
+            botaonotamenos.append('- Nota')
+
+            novadivbotoes.append(botaoremover)
+            novadivbotoes.append(botaonotamais)
+            novadivbotoes.append(botaonotamenos)
+
+            novoelementodiv.append(novadivbotoes)
+
+            $('.cadastros').append(novoelementodiv) //cadastrando
+
+            //mudando cor do background a partir da media (aprovado (verde) reprovado(vermelho) recuperação(amarelo))
+            if(media >= 6){
+                novoelementodiv.css("background-color","#c7ffe3") //
+            }
+            else{
+                if(media >=4){
+                    novoelementodiv.css("background-color","#FFFFBF")
+                }
+                else{
+                    novoelementodiv.css("background-color","#FFCFC8")
+                }
+            }
+            
+
+            //configurando os botoes de cada aluno
+            $('.botaoremover').click(function(e){
+            $(this).parent().parent().remove() //THIS É BRABO
+            renomear()
+            })
+
+            $('.botaonotamais').click(function(e){
+
+                e.preventDefault();
+                var nota1 = parseFloat($(this).parent().parent().children(".notas").children().eq(0).children('span').html());
+                var nota2 = parseFloat($(this).parent().parent().children(".notas").children().eq(1).children('span').html());
+                var nota3 = parseFloat($(this).parent().parent().children(".notas").children().eq(2).children('span').html());
+
+                if (nota1 < 9) {
+                    nota1++;
+                } else {
+                    nota1 = 10;
+                }
+
+                $(this).parent().parent().children(".notas").children().eq(0).children('span').html(nota1.toFixed(2));
+
+
+                if (nota2 < 9) {
+                    nota2++;
+                } else {
+                    nota2 = 10;
+                }
+            
+                $(this).parent().parent().children(".notas").children().eq(1).children('span').html(nota2.toFixed(2));
+
+                if (nota3 < 9) {
+                    nota3++;
+                } else {
+                    nota3 = 10;
+                }
+            
+                $(this).parent().parent().children(".notas").children().eq(2).children('span').html(nota3.toFixed(2));
+
+                if(nota1 >= 6){
+                $(this).parent().parent().children(".notas").children().eq(0).children().eq(1).css('color','blue')
+            }
+            else{
+                $(this).parent().parent().children(".notas").children().eq(0).children().eq(1).css('color','red')
+            }    
+
+            if(nota2 >= 6){
+                $(this).parent().parent().children(".notas").children().eq(1).children().eq(1).css('color','blue')
+            }
+            else{
+                $(this).parent().parent().children(".notas").children().eq(1).children().eq(1).css('color','red')
+            } 
+
+            if(nota3>= 6){
+                $(this).parent().parent().children(".notas").children().eq(2).children().eq(1).css('color','blue')
+            }
+            else{
+                $(this).parent().parent().children(".notas").children().eq(2).children().eq(1).css('color','red')
+            }                                               
+            
+            var localmedia = ($(this).parent().parent().children(".notas").children().eq(3).children('span'))
+            //console.log(localmedia)
+
+            var nota1 = ($(this).parent().parent().children(".notas").children().eq(0).children('span').html())
+            var nota2 = ($(this).parent().parent().children(".notas").children().eq(1).children('span').html())
+            var nota3 = ($(this).parent().parent().children(".notas").children().eq(2).children('span').html())
+
+            var media = (parseFloat(nota1) + parseFloat(nota2) + parseFloat(nota3)) / 3
+
+            localmedia.replaceWith($('<span>').append(media.toFixed(2)))
+
+            if(media >=6){       
+            $(this).parent().parent().children(".notas").children().eq(3).children().eq(1).css('color','blue')
+
+            }
+            else{
+            $(this).parent().parent().children(".notas").children().eq(3).children().eq(1).css('color','red')    
+            }
+            //mudando cor da div 
+            if(media >= 6){
+            $(this).parent().parent().css("background-color","#c7ffe3") //
+            }
+            else{
+                if(media >=4){
+                    $(this).parent().parent().css("background-color","#FFFFBF")
+                }
+                else{
+                    $(this).parent().parent().css("background-color","#FFCFC8")
+                }
+            }         
+
+            })
+
+            $('.botaonotamenos').click(function(e){
+            var divnotas = ($(this).parent().parent().children().eq(1).children().children().length)
+
+            e.preventDefault()
+            var nota1 = parseFloat($(this).parent().parent().children(".notas").children().eq(0).children('span').html());
+            var nota2 = parseFloat($(this).parent().parent().children(".notas").children().eq(1).children('span').html());
+            var nota3 = parseFloat($(this).parent().parent().children(".notas").children().eq(2).children('span').html());
+
+            if (nota1 > 1) {
+                nota1--;
+            } else {
+                nota1 = 0;
+            }
+
+            $(this).parent().parent().children(".notas").children().eq(0).children('span').html(nota1.toFixed(2));
+            
+            if (nota2 > 1) {
+                nota2--;
+            } else {
+                nota2 = 0;
+            }
+
+            $(this).parent().parent().children(".notas").children().eq(1).children('span').html(nota2.toFixed(2));
+
+            if (nota3 > 1) {
+                nota3--;
+            } else {
+                nota3 = 0;
+            }
+
+            $(this).parent().parent().children(".notas").children().eq(2).children('span').html(nota3.toFixed(2));
+            
+
+                
+            if(nota1 >= 6){
+                $(this).parent().parent().children(".notas").children().eq(0).children().eq(1).css('color','blue')
+            }
+            else{
+                $(this).parent().parent().children(".notas").children().eq(0).children().eq(1).css('color','red')
+            }    
+
+            if(nota2 >= 6){
+                $(this).parent().parent().children(".notas").children().eq(1).children().eq(1).css('color','blue')
+            }
+            else{
+                $(this).parent().parent().children(".notas").children().eq(1).children().eq(1).css('color','red')
+            } 
+
+            if(nota3 >= 6){
+                $(this).parent().parent().children(".notas").children().eq(2).children().eq(1).css('color','blue')
+            }
+            else{
+                $(this).parent().parent().children(".notas").children().eq(2).children().eq(1).css('color','red')
+            }                               
+            
+        
+            var localmedia = ($(this).parent().parent().children(".notas").children().eq(3).children('span'))
+            //console.log(localmedia)
+
+            var nota1 = ($(this).parent().parent().children(".notas").children().eq(0).children('span').html())
+            var nota2 = ($(this).parent().parent().children(".notas").children().eq(1).children('span').html())
+            var nota3 = ($(this).parent().parent().children(".notas").children().eq(2).children('span').html())
+
+            var media = (parseFloat(nota1) + parseFloat(nota2) + parseFloat(nota3)) / 3
+
+            localmedia.replaceWith($('<span>').append(media.toFixed(2)))
+
+            if(media >=6){
+            $(this).parent().parent().children(".notas").children().eq(3).children().eq(1).css('color','blue')
+            }
+            else{
+            $(this).parent().parent().children(".notas").children().eq(3).children().eq(1).css('color','red')
+            }
+            //mudando cor da div 
+            if(media >= 6){
+            $(this).parent().parent().css("background-color","#c7ffe3") //
+            }
+            else{
+                if(media >=4){
+                    $(this).parent().parent().css("background-color","#FFFFBF")
+                }
+                else{
+                    $(this).parent().parent().css("background-color","#FFCFC8")
+                }
+            }         
+
+        })
+        }
+
+        $('.gerar').click("submit", function(e){ //gerar quantidade inicial
+            e.preventDefault()
+            var valordesejado = $('input').val()
+            //console.log(valordesejado)
+            for(let i=0; i<valordesejado;i++){
+                criaraluno()
+        }
+    })
+
+        $('#add').click(function(e){ 
+            e.preventDefault()
+            criaraluno()
+            })
+
+        $('#rem').click(function(e){
+            var quantidade = $('.aluno').length
+            if($('.aluno').length > 0){
+                //console.log($('.cadastros').children().get(-1))
+                $('.cadastros').children().get(-1).remove()
+            }
+        })
+
+        $('#pior').click(function(e){
+            var quantidade = $('.aluno').length
+            var novoelementodiv = $('<div>').addClass("aluno")
+            var colunamedia = $('.medias').children().eq(1).html()
+            //console.log(media)
+
+            if(quantidade > 0){
+                let indice = 0
+                let a = 0
+
+                for(let i=0; i<quantidade;i++){
+                    var media = parseFloat($('.medias').children().eq(1+a).html())
+                    console.log(media)
+                    a = a+2
+                    if(media < colunamedia){
+                        colunamedia = media
+                        indice = i
+                    }
+                }
+    
+                var piormedia = ($('.medias').eq(indice).html())
+
+                for(let i=0; i<quantidade;i++){
+                    var aluno = ($('.aluno').eq(i).children().eq(1).children().eq(3).html())
+                    if(piormedia == aluno){
+                        ($('.aluno').eq(i)).remove()
+                        renomear()
+                    }
+                }
+            }
+
+        })
+
+
+    </script>
+</body>
+
+</html>
