@@ -1,4 +1,4 @@
-# sistema de boletim de uma sala de alunos em JavaScript e Jquery
+# Sistema de boletim aleatorio de alunos em JavaScript
 
 Projeto feito para estudo
 
